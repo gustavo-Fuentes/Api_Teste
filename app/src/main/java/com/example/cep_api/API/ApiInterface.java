@@ -1,11 +1,14 @@
 package com.example.cep_api.API;
 
-import okhttp3.ResponseBody;
+import com.example.cep_api.API.models.LocationClass;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 
-public interface ApiInterface {
-    @GET("{cep}/json")
-    Call<EnderecoResponse> getEndereco(@Path("cep") String cep);
+public interface ApiInterface { //responsavel por fazer as requisições
+    @GET("current.json")
+    Call<ClimaResponse> getClima(
+            @Query("key") String chave,
+            @Query("q") String cidade);
 }
