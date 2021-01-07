@@ -10,9 +10,25 @@ public class LocationClass {
     @SerializedName("region")
     private String regiao;
 
-    public LocationClass(String nome, String regiao) {
+    @SerializedName("country")
+    private String pais;
+
+    @SerializedName("tz_id")
+    private String tz_id;
+
+    public LocationClass(String nome, String regiao, String pais, String tz_id) {
         this.nome = nome;
         this.regiao = regiao;
+        this.pais = pais;
+        this.tz_id = tz_id;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public String getTz_id() {
+        return tz_id;
     }
 
     public String getNome() {

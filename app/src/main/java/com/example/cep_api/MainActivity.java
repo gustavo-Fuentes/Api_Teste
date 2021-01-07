@@ -6,6 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,13 +24,27 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    TextView teste;
+
+    TextView cidade;
+    TextView temperatura;
+    TextView descricao;
+
+    EditText busca;
+    Button enviar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        teste = findViewById(R.id.resultado);
+//----------------------------------------------
+        cidade =        findViewById(R.id.cidade_);
+        temperatura =   findViewById(R.id.celsius_);
+        descricao =     findViewById(R.id.descricao_);
+
+        busca =     findViewById(R.id.search_);
+        enviar =    findViewById(R.id.send_);
+//----------------------------------------------
+
 
         Retrofit retro = new Retrofit.Builder()
                 .baseUrl("https://api.weatherapi.com/v1/")
@@ -37,25 +55,30 @@ public class MainActivity extends AppCompatActivity {
 
         String chave = "fb8c3a9b303f42678ef213517210501";
 
-        service.getClima(chave,"diadema").enqueue(new Callback<ClimaResponse>() {
+        enviar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<ClimaResponse> call, Response<ClimaResponse> response) {
+            public void onClick(View v) {
+                service.getClima(chave, busca.getText().toString()).enqueue(new Callback<ClimaResponse>() {
+                    @Override
+                    public void onResponse(Call<ClimaResponse> call, Response<ClimaResponse> response) {
 
-//                String code = "" + response.code();
-//                teste.setText( code );
+                        cidade.setText(response.body().getLocation().getNome());
+                        temperatura.setText( Double.toString(response.body().getCurrent().getTemp_celsius()));
 
-                assert response.body() != null;
-                String resultado = "" + response.body().getLocation();
-                teste.setText(response.body().getLocation().getRegiao());
+//                        if(response.body().getCurrent().getIsDay() == 1){
+//                            //ImageView.setSource("lalal");
+//                        }
+//                        else {
+//                            //ImageView.setSource("lalal");
+//                        }
+                    }
 
-            }
+                    @Override
+                    public void onFailure(Call<ClimaResponse> call, Throwable t) {
 
-            @Override
-            public void onFailure(Call<ClimaResponse> call, Throwable t) {
-
-                teste.setText( t.getCause().toString() );
+                    }
+                });
             }
         });
     }
-
 }
