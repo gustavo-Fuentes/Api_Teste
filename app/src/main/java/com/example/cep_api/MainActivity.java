@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     EditText busca;
     Button enviar;
 
+    ImageView fundo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
         busca =     findViewById(R.id.search_);
         enviar =    findViewById(R.id.send_);
+
+        fundo =     findViewById(R.id.backgroud_img);
+        fundo.setVisibility(View.INVISIBLE);
 //----------------------------------------------
 
 
@@ -65,12 +70,14 @@ public class MainActivity extends AppCompatActivity {
                         cidade.setText(response.body().getLocation().getNome());
                         temperatura.setText( Double.toString(response.body().getCurrent().getTemp_celsius()));
 
-//                        if(response.body().getCurrent().getIsDay() == 1){
-//                            //ImageView.setSource("lalal");
-//                        }
-//                        else {
-//                            //ImageView.setSource("lalal");
-//                        }
+                        if(response.body().getCurrent().getIsDay() == 1){
+                            fundo.setVisibility(View.VISIBLE);
+                            fundo.setImageResource(R.drawable.day_wallpaper);
+                        }
+                        else {
+                            fundo.setVisibility(View.VISIBLE);
+                            fundo.setImageResource(R.drawable.night_wallpaper);
+                        }
                     }
 
                     @Override
