@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.cep_api"
+        applicationId "com.example.weather_app"
         minSdkVersion 28
         targetSdkVersion 30
         versionCode 1

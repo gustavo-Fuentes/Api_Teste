@@ -1,9 +1,8 @@
 package com.example.cep_api;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,11 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.cep_api.API.ApiInterface;
 import com.example.cep_api.API.ClimaResponse;
-import com.example.cep_api.API.models.LocationClass;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,37 +49,38 @@ public class MainActivity extends AppCompatActivity {
 
 
         Retrofit retro = new Retrofit.Builder()
-                .baseUrl("https://api.weatherapi.com/v1/")
+                .baseUrl("https://api.openweathermap.org/data/2.5/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         ApiInterface service = retro.create(ApiInterface.class);
 
-        String chave = "fb8c3a9b303f42678ef213517210501";
+        String chave = "38bdec46ec68359e875cd8364ceb19e9";
 
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                service.getClima(chave, busca.getText().toString()).enqueue(new Callback<ClimaResponse>() {
+                service.getClima("diadema", chave).enqueue(new Callback<ClimaResponse>() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onResponse(Call<ClimaResponse> call, Response<ClimaResponse> response) {
+                        int code = response.code();
+                        double coordenada_lon = response.body().getCoord().getLongitude();
 
-                        cidade.setText(response.body().getLocation().getNome());
-                        temperatura.setText( Double.toString(response.body().getCurrent().getTemp_celsius()));
 
-                        if(response.body().getCurrent().getIsDay() == 1){
-                            fundo.setVisibility(View.VISIBLE);
-                            fundo.setImageResource(R.drawable.day_wallpaper);
+                        if(code == 200){
+                            cidade.setText(coordenada_lon + "");
+                            //cidade.setText("isso funciona");
                         }
-                        else {
-                            fundo.setVisibility(View.VISIBLE);
-                            fundo.setImageResource(R.drawable.night_wallpaper);
+
+                        else{
+                            Log.i("Errooooo","Ferrou: " + response.code() );
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ClimaResponse> call, Throwable t) {
-
+                        Log.i("Errooooo", "Ferrou: " + t.getMessage());
                     }
                 });
             }
