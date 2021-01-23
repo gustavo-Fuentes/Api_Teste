@@ -1,18 +1,18 @@
-package com.example.cep_api.API;
+package com.example.weather_api.API;
 
-import com.example.cep_api.API.models.Clouds;
-import com.example.cep_api.API.models.Coordenada;
-import com.example.cep_api.API.models.Main;
-import com.example.cep_api.API.models.Sys;
-import com.example.cep_api.API.models.Weather;
-import com.example.cep_api.API.models.Wind;
+import com.example.weather_api.API.models.Clouds;
+import com.example.weather_api.API.models.Coordenada;
+import com.example.weather_api.API.models.Main;
+import com.example.weather_api.API.models.Sys;
+import com.example.weather_api.API.models.Weather;
+import com.example.weather_api.API.models.Wind;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 
-public class ClimaResponse { //Objeto raiz
+public class CurrentClimaResponse { //Objeto raiz do clima atual
 
     @SerializedName("base")
     @Expose

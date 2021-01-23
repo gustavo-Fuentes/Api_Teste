@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/activity_week_forecast"
+    android:background="@drawable/card_view_bg"
+    >
+
+    <RelativeLayout
+        android:id="@+id/celula"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/card_view_bg"
+        tools:ignore="HardcodedText">
+
+        <TextView
+            android:id="@+id/diaSemana"
+
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+
+            android:textSize="20sp"
+            android:text="Dia"
+
+
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/minMax"
+
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+
+            android:textSize="20sp"
+            android:text="Min/Max"
+
+            tools:ignore="HardcodedText"
+            android:gravity="center"
+            android:layout_toEndOf="@+id/diaSemana"
+            />
+
+        <TextView
+            android:id="@+id/humidade"
+
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+
+            android:textSize="20sp"
+            android:text="Humidade"
+
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:layout_toEndOf="@+id/diaSemana"
+            />
+
+
+
+        <TextView
+            android:id="@+id/vento"
+
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+
+            android:textSize="20sp"
+            android:text="Vento"
+
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            />
+
+
+
+        
+
+
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

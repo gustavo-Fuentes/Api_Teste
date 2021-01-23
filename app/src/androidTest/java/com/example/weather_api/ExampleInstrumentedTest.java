@@ -1,4 +1,4 @@
-package com.example.cep_api;
+package com.example.weather_api;
 
 import android.content.Context;
 

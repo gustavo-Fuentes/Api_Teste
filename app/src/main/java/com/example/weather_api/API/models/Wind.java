@@ -1,4 +1,4 @@
-package com.example.cep_api.API.models;
+package com.example.weather_api.API.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
