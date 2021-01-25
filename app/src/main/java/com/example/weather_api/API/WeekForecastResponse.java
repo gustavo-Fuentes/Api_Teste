@@ -1,6 +1,7 @@
 package com.example.weather_api.API;
 
 import com.example.weather_api.API.models.Daily;
+import com.example.weather_api.API.models.Temp;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -16,11 +17,16 @@ public class WeekForecastResponse { //Objeto resposta do clima da semana
     private String timezone;
 
 
-
     @SerializedName("daily")
     private List<Daily> dia;
 
+    public List<Daily> getDia() {
+        return dia;
+    }
 
+    public void setDia(List<Daily> dia) {
+        this.dia = dia;
+    }
 
     public double getLat() {
         return lat;

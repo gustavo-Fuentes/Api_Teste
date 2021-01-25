@@ -106,4 +106,16 @@ public class Daily {
     public void setNivel_uv(double nivel_uv) {
         this.nivel_uv = nivel_uv;
     }
+
+    //------------------------------------------------------------------------
+    @SerializedName("temp")
+    private Temp tempo;
+
+    public Temp getTempo() {
+        return tempo;
+    }
+
+    public void setTempo(Temp tempo) {
+        this.tempo = tempo;
+    }
 }

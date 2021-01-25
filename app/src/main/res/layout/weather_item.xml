@@ -21,14 +21,11 @@
 
         <TextView
             android:id="@+id/diaSemana"
-
             android:layout_width="80dp"
             android:layout_height="60dp"
-            android:layout_marginStart="5dp"
 
             android:textSize="20sp"
             android:text="Dia"
-
 
             android:gravity="center" />
 

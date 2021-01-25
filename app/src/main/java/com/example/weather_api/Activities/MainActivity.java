@@ -1,4 +1,4 @@
-package com.example.weather_api;
+package com.example.weather_api.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +15,7 @@ import com.example.weather_api.API.WeekForecastResponse;
 
 import com.example.weather_api.API.CurrentWeatherInterface;
 import com.example.weather_api.API.ForecastWeatherInterface;
+import com.example.weather_api.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;

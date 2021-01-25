@@ -15,10 +15,13 @@ import com.example.weather_api.R;
 import java.util.ArrayList;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>{
-    String dia, temp, humidade ,vento;
+    String []dia;
+    String []temp;
+    String []humidade;
+    String []vento;
     Context context;
 
-    public WeatherAdapter(Context ct, String dia, String temp, String humidade ,String ventoDesc){
+    public WeatherAdapter(Context ct, String []dia, String []temp, String []humidade ,String []ventoDesc){
         this.context = ct;
         this.dia = dia;
         this.temp = temp;
@@ -37,10 +40,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
 
     @Override
     public void onBindViewHolder(@NonNull WeatherViewHolder holder, int position) {
-        holder.myText1.setText(dia);
-        holder.myText2.setText(temp);
-        holder.myText3.setText(humidade);
-        holder.myText4.setText(vento);
+        holder.myText1.setText(dia[position]);
+        holder.myText2.setText(temp[position]);
+        holder.myText3.setText(humidade[position]);
+        holder.myText4.setText(vento[position]);
     }
 
     @Override

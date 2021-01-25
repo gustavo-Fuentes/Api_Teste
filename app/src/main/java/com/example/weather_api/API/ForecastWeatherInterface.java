@@ -10,6 +10,7 @@ public interface ForecastWeatherInterface { //responsavel por fazer as requisiç
     Call<WeekForecastResponse> getClimaSemanal(
             @Query("lat") double latitude,
             @Query("lon") double longitude,
+            @Query("units") String unidade,
             @Query("exclude") String modo,
             @Query("appid") String apikey);
 
