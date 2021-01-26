@@ -1,7 +1,10 @@
 package com.example.weather_api.Activities;
 
-import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +19,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,12 +31,13 @@ public class WeekForeceast extends AppCompatActivity {
     private WeatherAdapter adapter;
     EditText cidade;
     Button btn;
-    double lon, lat;
 
     String[] datas = new String[8];
     String[] minMax = new String[8];
     String[] humidade = new String[8];
     String[] vento = new String[8];
+
+    static double lon, lat;
 
 
     @Override
@@ -42,44 +45,52 @@ public class WeekForeceast extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_week_forecast);
 
-
         cidade = findViewById(R.id._cidade);
         btn = findViewById(R.id._enviar);
 
-        String chave = "38bdec46ec68359e875cd8364ceb19e9";
+
+//----------------------------------------Retrofit-------------------------------------------------
+        String chave = "38bdec46ec68359e875cd8364ceb19e9"; // <---- your key here
 
         Retrofit retro = new Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/data/2.5/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         CurrentWeatherInterface currentService = retro.create(CurrentWeatherInterface.class);
 
-        currentService.getClimaAtual("diadema" ,chave).enqueue(new Callback<CurrentClimaResponse>() {
-            @Override
-            public void onResponse(Call<CurrentClimaResponse> call, Response<CurrentClimaResponse> response) {
-                if(response.code() == 200){
-                    assert response.body() != null;
-                    lon = response.body().getCoord().getLongitude();
-                    lat = response.body().getCoord().getLatitude();
-                }
-            }
+//-------------------------------------------------------------------------------------------------
 
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(Call<CurrentClimaResponse> call, Throwable t) {
+            public void onClick(View v) {
+                currentService.getClimaAtual(cidade.getText().toString() ,chave).enqueue(new Callback<CurrentClimaResponse>() {
+                    @Override
+                    public void onResponse(Call<CurrentClimaResponse> call, Response<CurrentClimaResponse> response) {
+                        if(response.code() == 200){
+                            lon = response.body().getCoord().getLongitude();
+                            lat = response.body().getCoord().getLatitude();
+                            getWeekForecast(lon, lat, retro, chave);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<CurrentClimaResponse> call, Throwable t) {
+                    }
+                });
             }
         });
 
+    }
 
+
+
+    public void getWeekForecast(double lon, double lat, Retrofit retro, String chave){
 
         ForecastWeatherInterface forecastService = retro.create(ForecastWeatherInterface.class);
-        forecastService.getClimaSemanal(lat, lon, "metric","minutely,current,hourly", chave).enqueue(new Callback<WeekForecastResponse>() {
+        forecastService.getClimaSemanalCoord(lat, lon, "metric", "minutely,current,hourly", chave).enqueue(new Callback<WeekForecastResponse>() {
             @Override
             public void onResponse(Call<WeekForecastResponse> call, Response<WeekForecastResponse> response) {
-
                 if (response.code() == 200){
-                    // TODO: conferir o clima com o original
-
                     for(int i=0; i < response.body().getDia().size(); i++){
                         double minC = response.body().getDia().get(i).getTempo().getTemp_minima();
                         double maxC =  response.body().getDia().get(i).getTempo().getTemp_maxima();
@@ -94,18 +105,17 @@ public class WeekForeceast extends AppCompatActivity {
                         humidade[i] = response.body().getDia().get(i).getHumidade() + " %";
                         vento[i] = response.body().getDia().get(i).getVento_velocidade() + " m/s";
 
-                        adapter = new WeatherAdapter(WeekForeceast.this, datas, minMax, humidade, vento);
-                        RecyclerView rv = findViewById(R.id.recycle_view_main);
-                        rv.setAdapter(adapter);
-
                     }
 
+                    adapter = new WeatherAdapter(WeekForeceast.this, datas, minMax, humidade, vento);
+                    RecyclerView rv = findViewById(R.id.recycle_view_main);
+                    rv.setAdapter(adapter);
                 }
-
             }
 
             @Override
             public void onFailure(Call<WeekForecastResponse> call, Throwable t) {
+
             }
         });
 
@@ -114,14 +124,27 @@ public class WeekForeceast extends AppCompatActivity {
 
     public String[] getDias() throws ParseException {
 
+
+
         DateFormat dia = new SimpleDateFormat("dd");
         Calendar calendar = Calendar.getInstance();
+
+        int mDia = calendar.get(Calendar.DAY_OF_MONTH);
+        int mMes = calendar.get(Calendar.MONTH);
+        int mAno = calendar.get(Calendar.YEAR);
+
+
+
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        //calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
         int dow;
 
-        String[] days = new String[7];
-        for (int i = 0; i < 7; i++)
+        String[] days = new String[8];
+
+        //TODO: atualizar os dias da semana
+
+        for (int i = 0; i < 8; i++)
         {
 
             String dayName = "";
@@ -158,5 +181,7 @@ public class WeekForeceast extends AppCompatActivity {
 
         return days;
     }
+
+
 
 }

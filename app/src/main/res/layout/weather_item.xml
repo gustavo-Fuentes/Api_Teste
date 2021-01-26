@@ -12,17 +12,18 @@
         android:id="@+id/celula"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
+
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
         android:background="@drawable/card_view_bg"
         tools:ignore="HardcodedText">
 
         <TextView
             android:id="@+id/diaSemana"
-            android:layout_width="80dp"
-            android:layout_height="60dp"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
 
             android:textSize="20sp"
             android:text="Dia"
@@ -32,40 +33,38 @@
         <TextView
             android:id="@+id/minMax"
 
-            android:layout_width="80dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="5dp"
 
             android:textSize="20sp"
             android:text="Min/Max"
 
             tools:ignore="HardcodedText"
             android:gravity="center"
-            android:layout_toEndOf="@+id/diaSemana"
-            />
+            android:layout_toEndOf="@+id/diaSemana" />
 
         <TextView
             android:id="@+id/humidade"
 
-            android:layout_width="80dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="5dp"
 
             android:textSize="20sp"
             android:text="Humidade"
 
             android:layout_alignParentEnd="true"
             android:gravity="center"
-            android:layout_toEndOf="@+id/diaSemana"
-            />
+            android:layout_toEndOf="@+id/diaSemana" />
 
 
 
         <TextView
             android:id="@+id/vento"
 
-            android:layout_width="80dp"
-            android:layout_height="60dp"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
             android:layout_marginStart="5dp"
 
             android:textSize="20sp"

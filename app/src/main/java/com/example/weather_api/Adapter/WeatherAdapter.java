@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,14 +50,19 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
 
     @Override
     public int getItemCount() {
-        return 7;
+        return 8;
     }
 
     class WeatherViewHolder extends RecyclerView.ViewHolder{
+        EditText cidade;
+        Button btn;
         TextView myText1, myText2, myText3, myText4;
 
         public WeatherViewHolder(@NonNull View itemView) {
             super(itemView);
+            cidade = itemView.findViewById(R.id._cidade);
+            btn = itemView.findViewById(R.id._enviar);
+
             myText1 = itemView.findViewById(R.id.diaSemana);
             myText2 = itemView.findViewById(R.id.minMax);
             myText3 = itemView.findViewById(R.id.humidade);
