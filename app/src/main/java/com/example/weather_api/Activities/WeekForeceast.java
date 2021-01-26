@@ -39,7 +39,6 @@ public class WeekForeceast extends AppCompatActivity {
 
     static double lon, lat;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,8 +81,6 @@ public class WeekForeceast extends AppCompatActivity {
 
     }
 
-
-
     public void getWeekForecast(double lon, double lat, Retrofit retro, String chave){
 
         ForecastWeatherInterface forecastService = retro.create(ForecastWeatherInterface.class);
@@ -124,16 +121,8 @@ public class WeekForeceast extends AppCompatActivity {
 
     public String[] getDias() throws ParseException {
 
-
-
         DateFormat dia = new SimpleDateFormat("dd");
         Calendar calendar = Calendar.getInstance();
-
-        int mDia = calendar.get(Calendar.DAY_OF_MONTH);
-        int mMes = calendar.get(Calendar.MONTH);
-        int mAno = calendar.get(Calendar.YEAR);
-
-
 
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         //calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
@@ -141,8 +130,6 @@ public class WeekForeceast extends AppCompatActivity {
         int dow;
 
         String[] days = new String[8];
-
-        //TODO: atualizar os dias da semana
 
         for (int i = 0; i < 8; i++)
         {
@@ -181,7 +168,5 @@ public class WeekForeceast extends AppCompatActivity {
 
         return days;
     }
-
-
 
 }
