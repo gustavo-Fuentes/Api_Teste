@@ -1,5 +1,6 @@
 package com.example.weather_api.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -39,6 +40,8 @@ public class WeekForeceast extends AppCompatActivity {
 
     static double lon, lat;
 
+    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,29 +58,27 @@ public class WeekForeceast extends AppCompatActivity {
                 .baseUrl("https://api.openweathermap.org/data/2.5/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
         CurrentWeatherInterface currentService = retro.create(CurrentWeatherInterface.class);
 
 //-------------------------------------------------------------------------------------------------
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        btn.setOnClickListener(v -> currentService.getClimaAtual(cidade.getText().toString() ,chave)
+                .enqueue(new Callback<CurrentClimaResponse>() {
             @Override
-            public void onClick(View v) {
-                currentService.getClimaAtual(cidade.getText().toString() ,chave).enqueue(new Callback<CurrentClimaResponse>() {
-                    @Override
-                    public void onResponse(Call<CurrentClimaResponse> call, Response<CurrentClimaResponse> response) {
-                        if(response.code() == 200){
-                            lon = response.body().getCoord().getLongitude();
-                            lat = response.body().getCoord().getLatitude();
-                            getWeekForecast(lon, lat, retro, chave);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<CurrentClimaResponse> call, Throwable t) {
-                    }
-                });
+            public void onResponse(Call<CurrentClimaResponse> call, Response<CurrentClimaResponse> response) {
+                if(response.code() == 200){
+                    assert response.body() != null;
+                    lon = response.body().getCoord().getLongitude();
+                    lat = response.body().getCoord().getLatitude();
+                    getWeekForecast(lon, lat, retro, chave);
+                }
             }
-        });
+
+            @Override
+            public void onFailure(Call<CurrentClimaResponse> call, Throwable t) {
+            }
+        }));
 
     }
 
@@ -88,13 +89,14 @@ public class WeekForeceast extends AppCompatActivity {
             @Override
             public void onResponse(Call<WeekForecastResponse> call, Response<WeekForecastResponse> response) {
                 if (response.code() == 200){
+                    assert response.body() != null;
                     for(int i=0; i < response.body().getDia().size(); i++){
                         double minC = response.body().getDia().get(i).getTempo().getTemp_minima();
                         double maxC =  response.body().getDia().get(i).getTempo().getTemp_maxima();
 
                         try {
                             datas = getDias();
-                        } catch (ParseException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
@@ -119,9 +121,9 @@ public class WeekForeceast extends AppCompatActivity {
 
     }
 
-    public String[] getDias() throws ParseException {
+    public String[] getDias() {
 
-        DateFormat dia = new SimpleDateFormat("dd");
+        @SuppressLint("SimpleDateFormat") DateFormat dia = new SimpleDateFormat("dd");
         Calendar calendar = Calendar.getInstance();
 
         calendar.setFirstDayOfWeek(Calendar.MONDAY);

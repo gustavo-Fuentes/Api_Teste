@@ -9,4 +9,8 @@
     <string name="celsius">  </string>
     <string name="min_max">  </string>
     <string name="cidade">  </string>
+
+    <dimen name="legenda_tamanho"> 16sp </dimen>
+    <dimen name="fontSize"> 20sp </dimen>
+    <dimen name="martgem">10dp</dimen>
 </resources>

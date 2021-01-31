@@ -12,7 +12,6 @@
         android:id="@+id/celula"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
@@ -21,58 +20,85 @@
         tools:ignore="HardcodedText">
 
         <TextView
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:textSize="@dimen/legenda_tamanho"
+            android:text="Dia"
+            android:gravity="top|center"/>
+
+        <TextView
             android:id="@+id/diaSemana"
             android:layout_width="100dp"
             android:layout_height="70dp"
+            android:textSize="@dimen/fontSize"
+            android:text="Dia-semana"
+            android:gravity="center|bottom" />
 
-            android:textSize="20sp"
-            android:text="Dia"
 
-            android:gravity="center" />
+
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:textSize="@dimen/legenda_tamanho"
+            android:text="Min/Max"
+            tools:ignore="HardcodedText"
+            android:gravity="center|top"
+            android:layout_toEndOf="@+id/diaSemana"/>
+
 
         <TextView
             android:id="@+id/minMax"
 
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:layout_marginStart="5dp"
-
-            android:textSize="20sp"
-            android:text="Min/Max"
-
+            android:textSize="@dimen/fontSize"
+            android:text="Min/Maxa"
             tools:ignore="HardcodedText"
-            android:gravity="center"
-            android:layout_toEndOf="@+id/diaSemana" />
+            android:gravity="center|bottom"
+            android:layout_toEndOf="@+id/diaSemana"/>
+
+
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:textSize="@dimen/legenda_tamanho"
+            android:text="Humidade"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/diaSemana"
+            android:gravity="center|top"/>
 
         <TextView
             android:id="@+id/humidade"
 
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:layout_marginStart="5dp"
-
-            android:textSize="20sp"
+            android:textSize="@dimen/fontSize"
             android:text="Humidade"
-
             android:layout_alignParentEnd="true"
-            android:gravity="center"
-            android:layout_toEndOf="@+id/diaSemana" />
+            android:gravity="center|bottom"
+            android:layout_toEndOf="@+id/diaSemana"/>
 
 
 
         <TextView
-            android:id="@+id/vento"
 
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:layout_marginStart="5dp"
-
-            android:textSize="20sp"
+            android:textSize="@dimen/legenda_tamanho"
             android:text="Vento"
-
             android:layout_alignParentEnd="true"
-            android:gravity="center"
-            />
+            android:gravity="center|top"/>
+
+        <TextView
+            android:id="@+id/vento"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:textSize="@dimen/fontSize"
+            android:text="Vento"
+            android:layout_alignParentEnd="true"
+            android:gravity="center|bottom" />
 
 
 
